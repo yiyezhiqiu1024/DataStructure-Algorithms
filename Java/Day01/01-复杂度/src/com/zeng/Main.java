@@ -8,8 +8,15 @@ public class Main {
 		
 		// 通过 TimeTool 比较 两种方法的执行效率
 		
-		// 非递归方法
-		TimeTool.check("fib2", new Task() {
+		TimeTool.check("线性代数解法", new Task() {
+
+			@Override
+			public void execute() {
+				System.out.println(fib3(64));
+			}
+		});
+		
+		TimeTool.check("非递归解法", new Task() {
 
 			@Override
 			public void execute() {
@@ -17,8 +24,7 @@ public class Main {
 			}
 		});
 		
-		// 递归方法
-		TimeTool.check("fib1", new Task() {
+		TimeTool.check("递归解法", new Task() {
 
 			@Override
 			public void execute() {
@@ -31,17 +37,19 @@ public class Main {
 	}
 	
 	/**
-	 * 斐波那契数列（递归结构）
+	 * 斐波那契数列（递归解法）
 	 * @param n 数字
 	 * @return
 	 */
 	public static int fib1(int n) {
+		
 		if (n <= 1) return n;
+		
 		return fib1(n -2) + fib1(n - 1);
 	}
 	
 	/**
-	 * 斐波那契数列（非递归结构）
+	 * 斐波那契数列（非递归解法）
 	 * @param n 数字
 	 * @return
 	 */
@@ -58,6 +66,16 @@ public class Main {
 		}
 		
 		return second;
+	}
+	
+	/**
+	 * 斐波那契数列（线性代数解法）
+	 * @param n
+	 * @return
+	 */
+	public static int fib3(int n) {
+		double c = Math.sqrt(5);
+		return (int)((Math.pow((1 + c) / 2, n) - Math.pow((1 - c) / 2, n)) / c);
 	}
 
 }
