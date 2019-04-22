@@ -1,7 +1,5 @@
 package com.zeng;
 
-import java.util.Arrays;
-
 @SuppressWarnings("unchecked")
 public class ArrayList<E> {
 	/**
@@ -13,7 +11,7 @@ public class ArrayList<E> {
 	 */
 	private E[] elements;
 	
-	private static final int DEFAULT_CAPACITY = 2;
+	private static final int DEFAULT_CAPACITY = 10;
 	private static final int ELEMENT_NOT_FOUND = -1;
 	
 	public ArrayList(int capaticy) {
@@ -74,8 +72,8 @@ public class ArrayList<E> {
 		
 		ensureCapacity(size + 1);
 		
-		for (int i = size - 1; i >= index; i --) {
-			elements[i + 1] = elements[i];
+		for (int i = size; i > index; i --) {
+			elements[i] = elements[i - 1];
 		}
 		
 		elements[index] = element;
