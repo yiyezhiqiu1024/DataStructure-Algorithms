@@ -125,8 +125,8 @@ public class ArrayList<E> {
 		rangeCheck(index);
 		
 		E old = elements[index];
-		for (int i = index; i < size; i++) {
-			elements[i] = elements[i+1];
+		for (int i = index + 1; i < size; i++) {
+			elements[i - 1] = elements[i];
 		}
 		
 		// 清空最后一个元素

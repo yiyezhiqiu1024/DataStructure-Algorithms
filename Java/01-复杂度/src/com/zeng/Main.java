@@ -1,6 +1,6 @@
 package com.zeng;
 
-import com.zeng.TimeTool.Task;
+import com.zeng.Times.Task;
 
 public class Main {
 
@@ -8,7 +8,7 @@ public class Main {
 		
 		// 通过 TimeTool 比较 两种方法的执行效率
 		
-		TimeTool.check("线性代数解法", new Task() {
+		Times.test("线性代数解法", new Task() {
 
 			@Override
 			public void execute() {
@@ -16,7 +16,7 @@ public class Main {
 			}
 		});
 		
-		TimeTool.check("非递归解法", new Task() {
+		Times.test("非递归解法", new Task() {
 
 			@Override
 			public void execute() {
@@ -24,7 +24,7 @@ public class Main {
 			}
 		});
 		
-		TimeTool.check("递归解法", new Task() {
+		Times.test("递归解法", new Task() {
 
 			@Override
 			public void execute() {

@@ -1,52 +1,59 @@
 package com.zeng;
 
+import com.zeng.single.SingleLinkedList;
+import com.zeng.single.SingleLinkedList2;
+import com.zeng.util.Asserts;
+
+
+
 public class Main {
 
 	public static void main(String[] args) {
-//		testArrayList();
-		testLinkedList();
+//		testList(new ArrayList());
+		testArrayList();
 	}
 	
-	public static void testLinkedList() {
-		LinkedList<Integer> list = new LinkedList<>();
-		list.add(10);
-		list.add(0, 9);
-		list.add(list.size(), 11);
-		list.add(null);
+	static void testList(List<Integer> list) {
+		list.add(11);
+		list.add(22);
+		list.add(33);
+		list.add(44);
 		
-		list.set(1, 99);
-		System.out.println(list.toString());
-		System.out.println(list.get(0));
+		list.add(0, 55); // [55, 11, 22, 33, 44]
+		list.add(2, 66); // [55, 11, 66, 22, 33, 44]
+		list.add(list.size(), 77);// [55, 11, 66, 22, 33, 44, 77]
 		
-		list.remove(1);
-		System.out.println(list.toString());
-		 
-		System.out.println(list.contains(null));
+		System.out.println(list);
+		
+		list.remove(0); // [11, 66, 22, 33, 44, 77]
+		list.remove(2); // [11, 66, 33, 44, 77]
+		list.remove(list.size() - 1); // [11, 66, 33, 44]
+		
+		Asserts.test(list.indexOf(44) == 3);
+		Asserts.test(list.indexOf(22) == List.ELEMENT_NOT_FOUND);
+		Asserts.test(list.contains(33));
+		Asserts.test(list.get(0) == 11);
+		Asserts.test(list.get(1) == 66);
+		Asserts.test(list.get(list.size() - 1) == 44);
+		
+		System.out.println(list);
 	}
 	
-	public static void testArrayList() {
-		ArrayList<Person> PersonList = new ArrayList<>();
+	static void testArrayList() {
+		ArrayList<Integer> list = new ArrayList<>();
 		
-		Person tom = new Person("Tom", "001", 18);
-		Person lucy = new Person("Lucy", "002", 17);
-		Person jack = new Person("Jack", "003", 19);
-		PersonList.add(tom);
-		PersonList.add(lucy);
-		PersonList.add(jack);
-//		System.out.println(printPersonList);
-//		Person lily = new Person("Lily", "004", 17);
-//		PersonList.set(0, lily); 
-//		System.out.println(PersonList.get(0));
-//		System.out.println(PersonList.contains(new Person("Lily", "004", 17)));
-//		
-//		System.out.println(PersonList.indexOf(jack));
+		for (int i = 0; i < 50; i++) {
+			list.add(i);
+		}
 		
-		Person lily = new Person("Lily", "004", 17);
-		PersonList.add(0, lily);
-		System.out.println(PersonList.toString());
+		for (int i = 0; i < 50; i++) {
+			list.remove(0);
+		}
 		
-		PersonList.remove(PersonList.size() - 1);
-		System.out.println(PersonList.toString());
+		System.out.println(list);
+		
+		
 	}
-
+	
+	
 }

@@ -2,6 +2,8 @@ package com.zeng;
 
 public interface List<E> {
 	
+	public static final int ELEMENT_NOT_FOUND = -1;
+
 	/**
 	 * 清除所有元素
 	 */

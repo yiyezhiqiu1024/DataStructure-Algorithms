@@ -1,6 +1,6 @@
 package com.zeng;
 
-public class Assert {
+public class Asserts {
 	
 	public static void test(boolean value) {
 		if (!value)

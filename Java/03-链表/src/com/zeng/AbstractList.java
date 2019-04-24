@@ -1,8 +1,7 @@
 package com.zeng;
 
 public abstract class AbstractList<E> implements List<E> {
-
-	public static final int ELEMENT_NOT_FOUND = -1;
+	
 	/**
 	 * 元素的数量
 	 */
@@ -29,7 +28,7 @@ public abstract class AbstractList<E> implements List<E> {
 	}
 	
 	protected void outOfBounds(int index) {
-		throw new IndexOutOfBoundsException("Index:" + index + ", Size" + size);
+		throw new IndexOutOfBoundsException("Index:" + index + ", Size:" + size);
 	}
 	
 	protected void rangeCheck(int index) {

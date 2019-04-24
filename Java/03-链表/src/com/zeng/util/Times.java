@@ -1,4 +1,4 @@
-package com.zeng;
+package com.zeng.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,7 +9,7 @@ import java.util.Date;
  * @author CoderSLZeng
  *
  */
-public class TimeTool {
+public class Times {
 
 	/**
 	 * 时间格式
@@ -35,7 +35,7 @@ public class TimeTool {
 	 * @param title 任务名
 	 * @param task	执行任务
 	 */
-	public static void check(String title, Task task) {
+	public static void test(String title, Task task) {
 		if (task == null) return;
 		
 		title = (title == null) ? "" : ("【" + title + "】");
