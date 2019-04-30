@@ -1,5 +1,6 @@
 package com.zeng;
 
+import com.zeng.circle.SingleCircleLinkedList;
 import com.zeng.single.SingleLinkedList;
 import com.zeng.single.SingleLinkedList2;
 import com.zeng.util.Asserts;
@@ -13,7 +14,8 @@ public class Main {
 //		testArrayList();
 //		testList(new SingleLinkedList());
 //		testList(new SingleLinkedList2());
-		testList(new LinkedList());
+//		testList(new LinkedList());
+		testList(new SingleCircleLinkedList());
 	}
 	
 	static void testList(List<Integer> list) {
