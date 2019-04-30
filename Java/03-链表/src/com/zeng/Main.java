@@ -10,7 +10,10 @@ public class Main {
 
 	public static void main(String[] args) {
 //		testList(new ArrayList());
-		testArrayList();
+//		testArrayList();
+//		testList(new SingleLinkedList());
+//		testList(new SingleLinkedList2());
+		testList(new LinkedList());
 	}
 	
 	static void testList(List<Integer> list) {
