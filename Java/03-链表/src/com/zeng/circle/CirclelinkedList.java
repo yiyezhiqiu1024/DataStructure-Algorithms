@@ -3,12 +3,11 @@ package com.zeng.circle;
 import com.zeng.AbstractList;
 
 /**
- * 单向循环链表
+ * 双向循环链表
  * @author SL Zeng
  *
  */
-public class SingleCircleLinkedList<E> extends AbstractList<E> {
-
+public class CirclelinkedList<E> extends AbstractList<E> {
 	/**
 	 * 内部节点对象类
 	 * @author SL Zeng
@@ -22,11 +21,17 @@ public class SingleCircleLinkedList<E> extends AbstractList<E> {
 		E element;
 		
 		/**
+		 * 上一个节点
+		 */
+		Node<E> prev;
+		
+		/**
 		 * 下一个节点
 		 */
 		Node<E> next;
 		
-		public Node(E element, Node<E> next) {
+		public Node(Node<E> prev, E element, Node<E> next) {
+			this.prev =  prev;
 			this.element = element;
 			this.next = next;
 		}
@@ -34,32 +39,63 @@ public class SingleCircleLinkedList<E> extends AbstractList<E> {
 		@Override
 		public String toString() {
 			StringBuilder sb = new StringBuilder();
-			sb.append(element).append("_").append(next.element);
+			
+			if (prev != null) {
+				sb.append(prev.element);
+			} else {
+				sb.append("null");
+			}
+			
+			sb.append("_").append(element).append("_");
+			
+			if (next != null) {
+				sb.append(next.element);
+			} else {
+				sb.append("null"); 
+			}
+			
 			return sb.toString();
 		}
 	}
 	
 	private Node<E> first;
+	private Node<E> last;
 
 	@Override
 	public void clear() {
 		size = 0;
 		first = null;
+		last = null;
 	}
 
 	@Override
 	public void add(int index, E element) {
 		rangeCheckForAdd(index);
 		
-		if (0 == index) {
-			Node<E> addNode = new Node<>(element, first);
-			Node<E> lastNode = (0 == size) ? addNode : node(size - 1); // 拿到最后一个节点
-			lastNode.next = addNode;
-			first = addNode;
+		if (index == size) { // 往最后面添加元素
+			
+			Node<E> oldLast = last;
+			last = new Node<>(oldLast, element, first);
+			if (oldLast == null) { // 这是链表添加的第一个元素	
+				first = last;
+				first.next = first;
+				first.prev = first;
+			} else {
+				oldLast.next = last;
+				first.prev = last;
+			}
+			
 		} else {
-			Node<E> prev = node(index - 1); // 获取前一个Node
-			Node<E> addNode = new Node<>(element, prev.next); // 初始化添加Node
+			
+			Node<E> next = node(index);
+			Node<E> prev = next.prev;
+			Node<E> addNode = new Node<>(prev, element, next); // 初始化添加Node
+			next.prev = addNode;
 			prev.next = addNode;
+			
+			if (next == first) {
+				first = addNode;
+			} 
 		}
 		
 		size++; 
@@ -82,35 +118,43 @@ public class SingleCircleLinkedList<E> extends AbstractList<E> {
 	public E remove(int index) {
 		rangeCheck(index);
 		
-		Node<E> removeNode = first;
-		if (0 == index) { // 删除首个node
+		Node<E> removeNode = node(index);
+		
+		if (size == 1) {
+			first = null;
+			last = null;
+		} else {
+			Node<E> prev = removeNode.prev;
+			Node<E> next = removeNode.next;
+			prev.next = next;
+			next.prev = prev;
 			
-			if (size == 1 ) { // 只有1个node
-				first = null;
-			} else {
-				Node<E> lastNode = node(size - 1);
-				first = first.next;
-				lastNode.next = first;
+			if (removeNode == first) { 
+				first = next;
 			}
 			
-		} else {
-			Node<E> prev = node(index - 1);
-			removeNode = prev.next;
-			prev.next = removeNode.next;
+			if (removeNode == last) { 
+				last = prev;
+			}
 		}
+		
 		size--;
 		return removeNode.element;
 	}
 
 	@Override
 	public int indexOf(E element) {
+		
 		Node<E> node = first;
 		if (element == null) {
+			
 			for (int i = 0; i < size; i++) {
 				if (node.element == null) return i;
 				node  = node.next;
 			} 
+			
 		} else {
+			
 			for (int i = 0; i < size; i++) {
 				if (element.equals(node.element)) return i;
 				node  = node.next;
@@ -120,24 +164,28 @@ public class SingleCircleLinkedList<E> extends AbstractList<E> {
 		return ELEMENT_NOT_FOUND;
 	}
 
-	
-	/**
-	 * 获取index位置对应的节点对象
-	 * @param index
-	 * @return
-	 */
 	private Node<E> node(int index) {
 		rangeCheck(index);
-		Node<E> node = first;
-		for (int i = 0; i < index; i++) {
-			node = node.next;	
+		
+		if (index < (size >> 1)) {
+			Node<E> node = first;
+			for (int i = 0; i < index; i++) {
+				node = node.next;	
+			}
+			return node;
+		} else {
+			Node<E> node = last;
+			for (int i = size - 1; i > index; i--) {
+				node = node.prev;	
+			}
+			return node;
 		}
-		return node;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+
 		sb.append("size = ").append(size).append(", [");
 		Node<E> node = first;
 		for (int i = 0; i < size; i++) {
