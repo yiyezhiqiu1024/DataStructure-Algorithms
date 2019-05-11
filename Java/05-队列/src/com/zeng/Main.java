@@ -1,5 +1,6 @@
 package com.zeng;
 
+import com.zeng.circle.CircleDeque;
 import com.zeng.circle.CircleQueue;
 
 public class Main {
@@ -59,11 +60,37 @@ public class Main {
 		
 		System.out.println(queue);
 	}
+	
+	static void testCircleDeque() {
+		CircleDeque<Integer> queue = new CircleDeque<>();
+		for (int i = 0; i < 10; i++) {
+			queue.enQueueFront(i);
+//			queue.enQueueRear(i + 100);
+		}
+//		System.out.println(queue);
+		
+		
+		for (int i = 0; i < 3; i++) {
+//			queue.deQueueFront();
+			queue.deQueueRear();
+		}
+//		System.out.println(queue);
+		
+		queue.enQueueFront(11);
+		queue.enQueueFront(22);
+//		System.out.println(queue);
+		
+		while(!queue.isEmpty()) {
+//			System.out.println(queue.deQueueFront());
+			System.out.println(queue.deQueueRear());
+		}
+	}
 
 	public static void main(String[] args) {
 //		testQueue();
 //		testDeque();
-		testCircleQueue();
+//		testCircleQueue();
+		testCircleDeque();
 	}
 
 }
