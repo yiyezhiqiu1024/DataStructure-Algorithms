@@ -3,6 +3,10 @@ package com.zeng;
 import com.zeng.List.ArrayList;
 import com.zeng.List.List;
 
+/**
+ * 栈类
+ * @author SL Zeng
+ */
 public class Stack<E> {
 	
 	private List<E> list = new ArrayList<>();
