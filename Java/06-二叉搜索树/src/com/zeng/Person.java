@@ -7,13 +7,20 @@ package com.zeng;
 public class Person implements Comparable<Person> {
 	
 	private int age;
+	private String name;
 
 	
 	public Person(int age) {
 		this.age = age;
 	}
+	
+	
+	public Person(int age, String name) {
+		this.name = name;
+		this.age = age;
+	}
 
-
+	
 	public int getAge() {
 		return age;
 	}
@@ -33,7 +40,7 @@ public class Person implements Comparable<Person> {
 
 	@Override
 	public String toString() {
-		return "age = " + age;
+		return age + "_" + name;
 	}
 
 }

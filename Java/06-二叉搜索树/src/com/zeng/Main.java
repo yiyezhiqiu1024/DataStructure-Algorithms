@@ -2,6 +2,7 @@ package com.zeng;
 
 import java.util.Comparator;
 
+import com.zeng.printer.BinaryTreeInfo;
 import com.zeng.printer.BinaryTrees;
 
 public class Main {
@@ -51,12 +52,79 @@ public class Main {
 		
 		BinaryTrees.println(bst);
 	}
+	
+	static void test4() {
+		BinaryTrees.println(new BinaryTreeInfo() {
+
+			@Override
+			public Object root() {
+				return "A";
+			}
+
+			@Override
+			public Object left(Object node) {
+				if (node.equals("A")) return "B";
+				if (node.equals("C")) return "D";
+				return null;
+			}
+
+			@Override
+			public Object right(Object node) {
+				if (node.equals("A")) return "C";
+				if (node.equals("C")) return "E";
+				return null;
+			}
+
+			@Override
+			public Object string(Object node) {
+				return node.toString() + "_";
+			}
+			
+		});
+		
+	}
+	
+	static void test5() {
+		BinarySearchTree<Person> bst = new BinarySearchTree<Person>();
+		bst.add(new Person(10, "jack"));
+		bst.add(new Person(12, "jim"));		
+		bst.add(new Person(6, "rose"));
+		
+		bst.add(new Person(10, "michael"));
+		
+		BinaryTrees.println(bst);
+	}
+	
+	static void test6() {
+		Integer data[] = new Integer[] {
+				7, 4, 9, 2, 5, 8, 11, 3, 12, 1, 10
+		};
+		
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		for (int i = 0; i < data.length; i++) {
+			bst.add(data[i]);
+		}
+		
+		BinaryTrees.println(bst);
+		System.out.println("前序遍历");
+		bst.preorderTraversal();
+		System.out.println("\n中序遍历");
+		bst.inorderTraversal();
+		System.out.println("\n后序遍历");
+		bst.postorderTraversal();
+		System.out.println("\n层序遍历");
+		bst.leveOrderTraversal();
+	}
+	
 
 	public static void main(String[] args) {
 
 //		test1();
-		test2();
+//		test2();
 //		test3();
+//		test4();
+//		test5();
+		test6();
 	}
 
 }
