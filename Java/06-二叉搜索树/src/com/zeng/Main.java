@@ -2,6 +2,7 @@ package com.zeng;
 
 import java.util.Comparator;
 
+import com.zeng.BinarySearchTree.Visitor;
 import com.zeng.printer.BinaryTreeInfo;
 import com.zeng.printer.BinaryTrees;
 
@@ -97,7 +98,7 @@ public class Main {
 	
 	static void test6() {
 		Integer data[] = new Integer[] {
-				7, 4, 9, 2, 5, 8, 11, 3, 12, 1, 10
+				7, 4, 9, 2, 5
 		};
 		
 		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
@@ -106,14 +107,43 @@ public class Main {
 		}
 		
 		BinaryTrees.println(bst);
+		
+		bst.preorder(new Visitor<Integer>() {
+
+			@Override
+			public void visitor(Integer element) {
+				System.out.print(element + " ");
+			}
+		});
 		System.out.println("前序遍历");
-		bst.preorderTraversal();
-		System.out.println("\n中序遍历");
-		bst.inorderTraversal();
-		System.out.println("\n后序遍历");
-		bst.postorderTraversal();
-		System.out.println("\n层序遍历");
-		bst.leveOrderTraversal();
+		
+		bst.inorder(new Visitor<Integer>() {
+
+			@Override
+			public void visitor(Integer element) {
+				System.out.print(element + " ");
+			}
+		});
+
+		System.out.println("中序遍历");
+		bst.postorder(new Visitor<Integer>() {
+
+			@Override
+			public void visitor(Integer element) {
+				System.out.print(element + " ");
+			}
+		});
+
+		System.out.println("后序遍历");
+		
+		bst.levelOrder(new Visitor<Integer>() {
+
+			@Override
+			public void visitor(Integer element) {
+				System.out.print(element + " ");
+			}
+		});
+		System.out.println("层序遍历");
 	}
 	
 

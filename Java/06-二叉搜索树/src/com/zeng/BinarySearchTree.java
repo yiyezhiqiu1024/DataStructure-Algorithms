@@ -105,58 +105,64 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	
 	/**
 	 * 前序遍历
+	 * @param visitor
 	 */
-	public void preorderTraversal() {
-		preorderTraversal(root);
+	public void preorder(Visitor<E> visitor) {
+		preorder(root, visitor);
 	}
-	
-	private void preorderTraversal(Node<E> node) {
-		if (node == null) return;
+
+	private void preorder(Node<E> node, Visitor<E> visitor) {
+		if (node == null || visitor == null) return;
 		
-		System.out.print(node.element + " ");
-		preorderTraversal(node.left);
-		preorderTraversal(node.right);
+		visitor.visitor(node.element);
+		preorder(node.left, visitor);
+		preorder(node.right, visitor);
 	}
 	
 	/**
 	 * 中序遍历
+	 * @param visitor
 	 */
-	public void inorderTraversal() {
-		inorderTraversal(root);
+	public void inorder(Visitor<E> visitor) {
+		inorder(root, visitor);
 	}
 	
-	private void inorderTraversal(Node<E> node) {
-		if (node == null) return;
-		
-		inorderTraversal(node.left);
-		System.out.print(node.element + " ");
-		inorderTraversal(node.right);
+	private void inorder(Node<E> node, Visitor<E> visitor) {
+		if (node == null || visitor == null) return;
+		inorder(node.left, visitor);
+		visitor.visitor(node.element);
+		inorder(node.right, visitor);
 	}
 	
 	/**
-	 * 后续遍历
+	 * 后序遍历
+	 * @param visitor
 	 */
-	public void postorderTraversal() {
-		postorderTraversal(root);
+	public void postorder(Visitor<E> visitor) {
+		postorder(root, visitor);
 	}
-	
-	private void postorderTraversal(Node<E> node) {
-		if (node == null) return;
+
+	private void postorder(Node<E> node, Visitor<E> visitor) {
+		if (node == null || visitor == null) return;
 		
-		postorderTraversal(node.left);
-		postorderTraversal(node.right);
-		System.out.print(node.element + " ");
+		postorder(node.left, visitor);
+		postorder(node.right, visitor);
+		visitor.visitor(node.element);
 	}
 	
-	public void leveOrderTraversal() {
-		if (root == null) return;
+	/**
+	 * 层序遍历
+	 * @param visitor
+	 */
+	public void levelOrder(Visitor<E> visitor) {
+		if (root == null || visitor == null) return;
 		
 		Queue<Node<E>> queue = new LinkedList<>();
 		queue.offer(root);
 		
 		while (!queue.isEmpty()) {
-			Node<E> node = queue.poll();
-			System.out.print(node.element + " ");
+		 	Node<E> node = queue.poll();
+			visitor.visitor(node.element);
 			
 			if (node.left != null) {
 				queue.offer(node.left);
@@ -166,7 +172,6 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 				queue.offer(node.right);
 			}
 		}
-		
 	}
 
 	private int compare(E e1, E e2) {
@@ -200,6 +205,10 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	@Override
 	public Object string(Object node) {
 		return ((Node<E>)node).element;
+	}
+	
+	public static interface Visitor<E> {
+		void visitor(E element);
 	}
 
 	private static class Node<E> {
