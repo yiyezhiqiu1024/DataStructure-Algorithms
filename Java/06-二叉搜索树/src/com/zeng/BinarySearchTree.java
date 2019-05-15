@@ -174,9 +174,34 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 		}
 	}
 	
+	/**
+	 * @return 计算一个树是否为完全二叉树
+	 */
 	public boolean isComplete() {
+		if (root == null) return false;
 		
-		return false;
+		Queue<Node<E>> queue = new LinkedList<>();
+		queue.offer(root);
+		
+		boolean leaf = false;
+		while (!queue.isEmpty()) {
+			Node<E> node = queue.poll();
+			if (leaf && !node.isLeaf()) return false;
+			
+			if (node.left != null) {
+				queue.offer(node.left);
+			} else if (node.right != null) { // node.left == null && node.right != null
+				return false;
+			} 
+
+			if (node.right != null) { // node.left != null && node.right != null
+				queue.offer(node.right);
+			} else { // 后面遍历的节点都必须是叶子节点
+				leaf = true;
+			}
+		}
+		
+		return leaf;
 	}
 	
 	/**
@@ -281,16 +306,24 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 		void visitor(E element);
 	}
 
+	@SuppressWarnings("unused")
 	private static class Node<E> {
 		E element;
 		Node<E> left;
 		Node<E> right;
-		@SuppressWarnings("unused")
 		Node<E> parent;
 		
 		public Node(E element, Node<E> parent) {
 			this.element = element;
 			this.parent = parent;
+		} 
+		
+		public boolean isLeaf() {
+			return left == null && right == null;
+		}
+		
+		public boolean hasTowChildren() {
+			return left != null && right != null;
 		}
 	}
 }
