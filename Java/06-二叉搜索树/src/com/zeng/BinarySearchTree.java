@@ -173,6 +173,26 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 			}
 		}
 	}
+	
+	public boolean isComplete() {
+		
+		return false;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb =  new StringBuilder();
+		toString(root, sb, "");
+		return sb.toString();
+	}
+
+	private void toString(Node<E> node, StringBuilder sb, String prefix) {
+		if (node == null) return;
+		
+		sb.append(prefix).append("「").append(node.element).append("」").append("\n");
+		toString(node.left, sb, prefix + "『L』");
+		toString(node.right, sb, prefix + "『R』");
+	}
 
 	private int compare(E e1, E e2) {
 		if (comparator != null) {

@@ -107,6 +107,7 @@ public class Main {
 		}
 		
 		BinaryTrees.println(bst);
+		System.out.println(bst);
 		
 		bst.preorder(new Visitor<Integer>() {
 
