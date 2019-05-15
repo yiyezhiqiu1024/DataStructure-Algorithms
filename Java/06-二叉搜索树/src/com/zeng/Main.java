@@ -98,7 +98,8 @@ public class Main {
 	
 	static void test6() {
 		Integer data[] = new Integer[] {
-				7, 4, 9, 2, 5
+//				7, 4, 9, 2, 5
+				7, 4, 9, 2, 5, 8, 11, 3, 12, 1
 		};
 		
 		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
@@ -108,6 +109,7 @@ public class Main {
 		
 		BinaryTrees.println(bst);
 		System.out.println(bst);
+		System.out.println(bst.height2());
 		
 		bst.preorder(new Visitor<Integer>() {
 

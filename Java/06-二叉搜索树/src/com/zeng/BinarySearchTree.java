@@ -179,6 +179,56 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 		return false;
 	}
 	
+	/**
+	 * 计算二叉树的高度（迭代）
+	 */
+	public int height() {
+		if (root == null) return 0;
+		// 数的高度
+		int height = 0;
+		// 存储着每一层的元素数量
+		int levelSize = 1;
+		Queue<Node<E>> queue = new LinkedList<>();
+		queue.offer(root);
+		
+		while (!queue.isEmpty()) {
+			Node<E> node = queue.poll();
+			levelSize--;
+			
+			if (node.left != null) {
+				queue.offer(node.left);
+			}
+			
+			if (node.right != null) {
+				queue.offer(node.right);
+			}
+			
+			if (0 == levelSize) {
+				levelSize = queue.size();
+				height++;
+			}
+		}
+		
+		return height;
+	}
+	
+	/**
+	 * 计算二叉树的高度（递归）
+	 */
+	public int height2() {
+		return height(root);
+	}
+	
+	/**
+	 * 计算二叉树的高度（递归）
+	 * @param node
+	 * @return 二叉树的高度
+	 */
+	public int height(Node<E> node) {
+		if (node == null) return 0;
+		return 1 + Math.max(height(node.left), height(node.right));
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb =  new StringBuilder();
