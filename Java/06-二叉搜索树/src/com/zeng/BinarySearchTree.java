@@ -282,6 +282,52 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 		}
 	}
 
+	
+	/**
+	 * @param node
+	 * @return 前驱节点
+	 */
+	public Node<E> predecessor(Node<E> node) {
+		if (node == null) return null;
+		
+		// 前驱节点在左子树当中（left.right.right.right...）
+		Node<E> p = node.left;
+		if (p != null) {
+			while (p.right != null) {
+				p = p.right;
+			}
+			return p;
+		}
+		
+		// 从父节点、祖父节点中寻找前驱节点
+		while (node.parent != null && node == node.parent.left) {
+			node = node.parent;
+		}
+		
+		// node.parent == null
+		// node == node.parent.right
+		return node.parent;
+	}
+	
+	public Node<E> successor(Node<E> node) {
+		if (node == null) return null;
+		// 后继节点在左子树当中（right.left.left.left...）
+		Node<E> s = node.right;
+		if (s != null) {
+			while (s.left != null) {
+				s = s.left;
+			}
+			return s;
+		}
+		
+		// 从父节点、祖父节点中寻找后继节点
+		while (node.parent != null && node == node.parent.right) {
+			node = node.parent;
+		}
+		
+		return node.parent;
+	}
+	
 	@Override
 	public Object root() {
 		return root;
@@ -299,7 +345,12 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 
 	@Override
 	public Object string(Object node) {
-		return ((Node<E>)node).element;
+		Node<E> myNode = (Node<E>) node;
+		String parentString = "null";
+		if (myNode.parent != null) {
+			parentString = myNode.parent.element.toString();
+		}
+		return myNode.element + "_p(" + parentString + ")";
 	}
 	
 	public static interface Visitor<E> {
