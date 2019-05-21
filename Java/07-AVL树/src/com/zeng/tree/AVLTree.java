@@ -99,7 +99,7 @@ public class AVLTree<E> extends BinarySearchTree<E> {
 		f.left = e;
 		if (e != null) 
 			e.parent = f;
-		f.parent = g;
+		f.right = g;
 		if (g != null)
 			g.parent = f;
 		updateHeight(f);
