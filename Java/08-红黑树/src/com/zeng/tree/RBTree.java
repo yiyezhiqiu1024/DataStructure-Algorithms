@@ -67,13 +67,11 @@ public class RBTree<E> extends BalanceBinarySearchTree<E> {
 	}
 
 	@Override
-	protected void afterRemove(Node<E> node, Node<E> replacement) {
+	protected void afterRemove(Node<E> node) {
 		// 如果删除的节点是红色
-		if (isRed(node)) return;
-		
-		// 用以取代node的子节点是红色
-		if (isRed(replacement)) {
-			black(replacement);
+		// 或者 用以取代node的子节点是红色
+		if (isRed(node)) {
+			black(node);
 			return;
 		}
 		
@@ -101,7 +99,7 @@ public class RBTree<E> extends BalanceBinarySearchTree<E> {
 				black(parent);
 				red(sibling);
 				if (parentBlack) {
-					afterRemove(parent, null);
+					afterRemove(parent);
 				}
 			} else { // 兄弟节点至少1个红色子节点，向兄弟节点借元素
 				// 兄弟节点的右边是黑色，兄弟先旋转
@@ -131,7 +129,7 @@ public class RBTree<E> extends BalanceBinarySearchTree<E> {
 				black(parent);
 				red(sibling);
 				if (parentBlack) {
-					afterRemove(parent, null);
+					afterRemove(parent);
 				}
 			} else { // 兄弟节点至少1个红色子节点，向兄弟节点借元素
 				// 兄弟节点的左边是黑色，兄弟先旋转
