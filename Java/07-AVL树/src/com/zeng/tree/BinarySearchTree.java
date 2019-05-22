@@ -67,6 +67,7 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
 		}
 		
 		size++;
+		afterAdd(newNode);
 	}
 
 	/**

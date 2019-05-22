@@ -38,13 +38,14 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 	 * @param visitor
 	 */
 	public void preorder(Visitor<E> visitor) {
+		if (visitor == null) return;
 		preorder(root, visitor);
 	}
 
 	private void preorder(Node<E> node, Visitor<E> visitor) {
-		if (node == null || visitor == null) return;
+		if (node == null || visitor.stop) return;
 		
-		visitor.visitor(node.element);
+		visitor.stop = visitor.visitor(node.element);
 		preorder(node.left, visitor);
 		preorder(node.right, visitor);
 	}
@@ -54,13 +55,15 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 	 * @param visitor
 	 */
 	public void inorder(Visitor<E> visitor) {
+		if (visitor == null) return;
 		inorder(root, visitor);
 	}
 	
 	private void inorder(Node<E> node, Visitor<E> visitor) {
-		if (node == null || visitor == null) return;
+		if (node == null || visitor.stop) return;
 		inorder(node.left, visitor);
-		visitor.visitor(node.element);
+		if (visitor.stop) return;
+		visitor.stop = visitor.visitor(node.element);
 		inorder(node.right, visitor);
 	}
 	
@@ -69,15 +72,17 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 	 * @param visitor
 	 */
 	public void postorder(Visitor<E> visitor) {
+		if (visitor == null) return;
 		postorder(root, visitor);
 	}
 
 	private void postorder(Node<E> node, Visitor<E> visitor) {
-		if (node == null || visitor == null) return;
+		if (node == null || visitor.stop) return;
 		
 		postorder(node.left, visitor);
 		postorder(node.right, visitor);
-		visitor.visitor(node.element);
+		if (visitor.stop) return;
+		visitor.stop = visitor.visitor(node.element);
 	}
 	
 	/**
@@ -92,7 +97,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 		
 		while (!queue.isEmpty()) {
 		 	Node<E> node = queue.poll();
-			visitor.visitor(node.element);
+			if (visitor.visitor(node.element)) return;
 			
 			if (node.left != null) {
 				queue.offer(node.left);
@@ -254,8 +259,13 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 		return myNode.element + "_p(" + parentString + ")";
 	}
 	
-	public static interface Visitor<E> {
-		void visitor(E element);
+	public static abstract class Visitor<E> {
+		boolean stop;
+		/**
+		 * @param element 元素
+		 * @return 如果返回true，就代表停止遍历
+		 */
+		abstract boolean visitor(E element);
 	}
 	
 	@SuppressWarnings("unused")
