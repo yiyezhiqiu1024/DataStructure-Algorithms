@@ -115,7 +115,7 @@ public class Main {
 		bst.preorder(new Visitor<Integer>() {
 
 			@Override
-			public void visitor(Integer element) {
+			public void visit(Integer element) {
 				System.out.print(element + " ");
 			}
 		});
@@ -124,7 +124,7 @@ public class Main {
 		bst.inorder(new Visitor<Integer>() {
 
 			@Override
-			public void visitor(Integer element) {
+			public void visit(Integer element) {
 				System.out.print(element + " ");
 			}
 		});
@@ -133,7 +133,7 @@ public class Main {
 		bst.postorder(new Visitor<Integer>() {
 
 			@Override
-			public void visitor(Integer element) {
+			public void visit(Integer element) {
 				System.out.print(element + " ");
 			}
 		});
@@ -143,7 +143,7 @@ public class Main {
 		bst.levelOrder(new Visitor<Integer>() {
 
 			@Override
-			public void visitor(Integer element) {
+			public void visit(Integer element) {
 				System.out.print(element + " ");
 			}
 		});

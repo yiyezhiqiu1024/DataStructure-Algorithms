@@ -45,7 +45,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 	private void preorder(Node<E> node, Visitor<E> visitor) {
 		if (node == null || visitor.stop) return;
 		
-		visitor.stop = visitor.visitor(node.element);
+		visitor.stop = visitor.visit(node.element);
 		preorder(node.left, visitor);
 		preorder(node.right, visitor);
 	}
@@ -63,7 +63,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 		if (node == null || visitor.stop) return;
 		inorder(node.left, visitor);
 		if (visitor.stop) return;
-		visitor.stop = visitor.visitor(node.element);
+		visitor.stop = visitor.visit(node.element);
 		inorder(node.right, visitor);
 	}
 	
@@ -82,7 +82,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 		postorder(node.left, visitor);
 		postorder(node.right, visitor);
 		if (visitor.stop) return;
-		visitor.stop = visitor.visitor(node.element);
+		visitor.stop = visitor.visit(node.element);
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 		
 		while (!queue.isEmpty()) {
 		 	Node<E> node = queue.poll();
-			if (visitor.visitor(node.element)) return;
+			if (visitor.visit(node.element)) return;
 			
 			if (node.left != null) {
 				queue.offer(node.left);
@@ -269,7 +269,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 		 * @param element 元素
 		 * @return 如果返回true，就代表遍历结束
 		 */
-		abstract boolean visitor(E element);
+		abstract boolean visit(E element);
 	}
 	
 	@SuppressWarnings("unused")

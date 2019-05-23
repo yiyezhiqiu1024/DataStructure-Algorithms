@@ -114,7 +114,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	private void preorder(Node<E> node, Visitor<E> visitor) {
 		if (node == null || visitor == null) return;
 		
-		visitor.visitor(node.element);
+		visitor.visit(node.element);
 		preorder(node.left, visitor);
 		preorder(node.right, visitor);
 	}
@@ -130,7 +130,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	private void inorder(Node<E> node, Visitor<E> visitor) {
 		if (node == null || visitor == null) return;
 		inorder(node.left, visitor);
-		visitor.visitor(node.element);
+		visitor.visit(node.element);
 		inorder(node.right, visitor);
 	}
 	
@@ -147,7 +147,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 		
 		postorder(node.left, visitor);
 		postorder(node.right, visitor);
-		visitor.visitor(node.element);
+		visitor.visit(node.element);
 	}
 	
 	/**
@@ -162,7 +162,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 		
 		while (!queue.isEmpty()) {
 		 	Node<E> node = queue.poll();
-			visitor.visitor(node.element);
+			visitor.visit(node.element);
 			
 			if (node.left != null) {
 				queue.offer(node.left);
@@ -354,7 +354,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 	}
 	
 	public static interface Visitor<E> {
-		void visitor(E element);
+		void visit(E element);
 	}
 
 	@SuppressWarnings("unused")
