@@ -27,8 +27,24 @@ public class _21_合并两个有序链表 {
 		System.out.println(result.next.next.next.next.next.val);	
 	}
 	
-	// 虚拟头节点
+	// 只要是用到递归，首先要搞清楚一个问题：这个递归函数的功能是什么？
+	// 递归基：边界
 	private static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+		if (l1 == null) return l2;
+		if (l2 == null) return l1;
+		
+		if (l1.val <= l2.val) {
+			l1.next = mergeTwoLists(l1.next, l2);
+			return l1;
+		} else {
+			l2.next = mergeTwoLists(l1, l2.next);
+			return l2;
+		}
+		
+	}
+	
+	// 迭代2（虚拟头节点）
+	private static ListNode mergeTwoLists1(ListNode l1, ListNode l2) {
 		
 		if (l1 == null) return l2;
 		if (l2 == null) return l1;
@@ -48,14 +64,15 @@ public class _21_合并两个有序链表 {
 		
 		if (l1 == null) {
 			cur.next = l2;
-		} else if (l2 == null){
+		} else if (l2 == null) {
 			cur.next = l1;
 		}
 		
 		return head.next;
 	}
 	
-private static ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
+	// 迭代1
+	private static ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
 		
 		if (l1 == null) return l2;
 		if (l2 == null) return l1;
